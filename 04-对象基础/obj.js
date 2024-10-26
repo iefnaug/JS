@@ -78,3 +78,26 @@ Person()
 let p = new Person()
 console.log(p.name2?.length); //可选链
 p.say?.() //方法可能不存在
+
+/**
+ * symbol
+ */
+let sl = Symbol()
+console.log(typeof sl);
+console.log(sl.toString);
+
+let sl1 = Symbol('id')
+let sl2 = Symbol('id')
+console.log(sl1 === sl2);
+
+let sb = Symbol('id')
+let so = {
+    name: 'scott',
+    age: 32,
+    [sb]: 'sb' //for...in中不会出现
+}
+for(let k in so) {
+    console.log(k);
+}
+let arr = Object.keys(so) //跳过symbol
+console.log(arr);
