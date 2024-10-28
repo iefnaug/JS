@@ -78,3 +78,59 @@ Person()
 let p = new Person()
 console.log(p.name2?.length); //可选链
 p.say?.() //方法可能不存在
+
+
+/**
+ * Symbol
+ */
+let sy = Symbol.for('id')
+let sy2 = Symbol.for('id');
+console.log(sy === sy2);
+console.log(Symbol.keyFor(sy));
+
+let so = {
+    name: 'test',
+    [Symbol('age')]: 32
+}
+let keys = Object.getOwnPropertySymbols(so)
+console.log(keys);
+keys = Reflect.ownKeys(so)
+console.log(keys);
+
+
+/**
+ * 对象到原始类型的转换
+ * https://zh.javascript.info/object-toprimitive
+ */
+console.log(Symbol.toPrimitive.toString());
+
+console.log(Symbol.toPrimitive === Symbol.toPrimitive);
+
+
+let user = {
+    name: "John",
+    money: 1000,
+    /*
+    三种hint: string, number, default
+    "string"（对于 alert 和其他需要字符串的操作）
+    "number"（对于数学运算）
+    "default"（少数运算符，通常对象以和 "number" 相同的方式实现 "default" 转换）
+    */
+    [Symbol.toPrimitive](hint) {
+        console.log(`hint: ${hint}`);
+        return hint == "string" ? `{name: "${this.name}"}` : this.money;
+        // return {} //必须返回原始值
+    },
+    // valueOf() {
+    //     console.log('call valueOf');
+    // },
+    // toString() {
+    //     console.log('call toString');
+    // }
+};
+console.log(user + '');
+console.log(+user);
+console.log(100 + user);
+
+
+
